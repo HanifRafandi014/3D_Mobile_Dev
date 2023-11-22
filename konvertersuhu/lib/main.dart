@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:konvertersuhu/widget/result.dart';
+import 'package:konvertersuhu/widget/input.dart';
+import 'package:konvertersuhu/widget/convert.dart';
 
 void main() => runApp(MyApp());
 
@@ -38,6 +41,7 @@ class _TemperatureConverterState extends State<TemperatureConverter> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Konverter Suhu'),
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -46,64 +50,11 @@ class _TemperatureConverterState extends State<TemperatureConverter> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              TextField(
-                controller: _celsiusController,
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
-                decoration: InputDecoration(
-                  labelText: 'Masukkan Suhu (Celsius)',
-                ),
-              ),
+              InputWidget(controller: _celsiusController),
               SizedBox(height: 20),
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 200),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.red),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          padding: EdgeInsets.all(8),
-                          child: Column(
-                            children: [
-                              Text('Suhu dalam Kelvin:', style: TextStyle(fontSize: 14)),
-                              SizedBox(height: 10),
-                              Text('$_kelvinResult', style: TextStyle(fontSize: 40)),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.yellow),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          padding: EdgeInsets.all(8),
-                          child: Column(
-                            children: [
-                              Text('Suhu dalam Reamur:', style: TextStyle(fontSize: 14)),
-                              SizedBox(height: 10),
-                              Text('$_reamurResult', style: TextStyle(fontSize: 40)),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+              ResultWidget(kelvinResult: _kelvinResult, reamurResult: _reamurResult),
               SizedBox(height: 10),
-              Container(
-                margin: EdgeInsets.only(top: 250),
-                child: ElevatedButton(
-                  onPressed: () {
-                    _convertTemperature();
-                  },
-                  child: Text('Konversi Suhu'),
-                ),
-              ),
+              ConvertButton(onPressed: _convertTemperature),
             ],
           ),
         ),
